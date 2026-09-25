@@ -5,3 +5,11 @@ Accept: application/json
 ### Get one contact
 GET http://localhost:3000/contacts/single?id=6ab42f0392c2a0c60ac5ae09
 Accept: application/json
+
+### Get all contacts on Render
+GET https://cse341-web-services-stcf.onrender.com/contacts
+Accept: application/json
+
+### Get one contact on Render
+GET https://cse341-web-services-stcf.onrender.com/contacts/single?id=6ab42f0392c2a0c60ac5ae09
+Accept: application/json
