@@ -1,15 +1,124 @@
-### Get all contacts
-GET http://localhost:3000/contacts
+@localUrl = http://localhost:3000
+@renderUrl = https://cse341-web-services-stcf.onrender.com
+
+# After each POST, paste the returned ID into the matching variable.
+# The previous local test contact was deleted, so create a new one.
+@localContactId = 6abd52680bcbb22443eff05a
+@renderContactId = 6abd52680bcbb22443eff05a
+
+### LOCAL: Get all contacts — expect 200
+GET {{localUrl}}/contacts
 Accept: application/json
 
-### Get one contact
-GET http://localhost:3000/contacts/single?id=6ab42f0392c2a0c60ac5ae09
+
+### LOCAL: Create a test contact — expect 201 and a new ID
+POST {{localUrl}}/contacts
+Content-Type: application/json
+
+{
+    "firstName": "Test",
+    "lastName": "Contact",
+    "email": "test.contact@example.com",
+    "favoriteColor": "Blue",
+    "birthday": "2000-01-15"
+}
+
+
+### LOCAL: Get the test contact — expect 200
+GET {{localUrl}}/contacts/single?id={{localContactId}}
 Accept: application/json
 
-### Get all contacts on Render
-GET https://cse341-web-services-stcf.onrender.com/contacts
+
+### LOCAL: Update the test contact — expect 204
+PUT {{localUrl}}/contacts/{{localContactId}}
+Content-Type: application/json
+
+{
+    "firstName": "Test",
+    "lastName": "Contact",
+    "email": "test.contact@example.com",
+    "favoriteColor": "Green",
+    "birthday": "2000-01-15"
+}
+
+
+### LOCAL: Verify the update — expect 200 and Green
+GET {{localUrl}}/contacts/single?id={{localContactId}}
 Accept: application/json
 
-### Get one contact on Render
-GET https://cse341-web-services-stcf.onrender.com/contacts/single?id=6ab42f0392c2a0c60ac5ae09
+
+### LOCAL: Test missing required fields — expect 400
+POST {{localUrl}}/contacts
+Content-Type: application/json
+
+{
+    "firstName": "Incomplete"
+}
+
+
+### LOCAL: Delete the test contact — expect 200
+DELETE {{localUrl}}/contacts/{{localContactId}}
+
+
+### LOCAL: Verify deletion — expect 404
+GET {{localUrl}}/contacts/single?id={{localContactId}}
+Accept: application/json
+
+
+### RENDER: Get all contacts — expect 200
+GET {{renderUrl}}/contacts
+Accept: application/json
+
+
+### RENDER: Create a test contact — expect 201 and a new ID
+POST {{renderUrl}}/contacts
+Content-Type: application/json
+
+{
+    "firstName": "Test",
+    "lastName": "Contact",
+    "email": "test.contact@example.com",
+    "favoriteColor": "Blue",
+    "birthday": "2000-01-15"
+}
+
+
+### RENDER: Get the test contact — expect 200
+GET {{renderUrl}}/contacts/single?id={{renderContactId}}
+Accept: application/json
+
+
+### RENDER: Update the test contact — expect 204
+PUT {{renderUrl}}/contacts/{{renderContactId}}
+Content-Type: application/json
+
+{
+    "firstName": "Test",
+    "lastName": "Contact",
+    "email": "test.contact@example.com",
+    "favoriteColor": "Green",
+    "birthday": "2000-01-15"
+}
+
+
+### RENDER: Verify the update — expect 200 and Green
+GET {{renderUrl}}/contacts/single?id={{renderContactId}}
+Accept: application/json
+
+
+### RENDER: Test missing required fields — expect 400
+POST {{renderUrl}}/contacts
+Content-Type: application/json
+
+{
+    "firstName": "Incomplete"
+}
+
+
+### RENDER: Delete the test contact — expect 200
+DELETE {{renderUrl}}/contacts/{{renderContactId}}
+
+
+### RENDER: Verify deletion — expect 404
+GET {{renderUrl}}/contacts/single?id={{renderContactId}}
 Accept: application/json

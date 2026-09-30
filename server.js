@@ -6,6 +6,9 @@ const { connectDB } = require('./data/database');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Read JSON sent in POST and PUT req
+app.use(express.json());
+
 app.use('/', require('./routes'));
 
 async function startServer() {
@@ -17,7 +20,7 @@ async function startServer() {
         });
     } catch (error) {
         console.error('Failed to start server:', error.message);
-        process.getMaxListeners(1);
+        process.exit(1);
     }
 }
 
