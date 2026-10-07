@@ -4,7 +4,7 @@
 # After each POST, paste the returned ID into the matching variable.
 # The previous local test contact was deleted, so create a new one.
 @localContactId = 6abd52680bcbb22443eff05a
-@renderContactId = 6abd52680bcbb22443eff05a
+@renderContactId = 6abe910fe063ff9f6af9613a
 
 ### LOCAL: Get all contacts — expect 200
 GET {{localUrl}}/contacts
